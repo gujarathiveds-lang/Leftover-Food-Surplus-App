@@ -80,15 +80,18 @@ function normalizeUser(user) {
 // ============================================================
 
 app.use(express.json({ limit: '1mb' }));
+
 app.use(express.urlencoded({
     extended: true,
     limit: '1mb'
 }));
 
+// Trust Render's HTTPS proxy.
+app.set('trust proxy', 1);
+
 app.use(session({
     name: 'leftover.sid',
-    secret:
-        process.env.SESSION_SECRET ||
+    secret: process.env.SESSION_SECRET ||
         'leftover-rescue-local-demo-secret',
     resave: false,
     saveUninitialized: false,
@@ -998,8 +1001,6 @@ app.patch(
 // FALLBACK ROUTES
 // ============================================================
 
-// Send the app page for non-API routes.
-// Compatible with Express 4 and Express 5.
 app.get(/.*/, (req, res, next) => {
     if (req.path.startsWith('/api/')) {
         return next();
@@ -1040,7 +1041,5 @@ app.use((error, req, res, next) => {
 // ============================================================
 
 app.listen(PORT, () => {
-    console.log(
-        `Leftover Rescue is running at http://localhost:${PORT}`
-    );
+    console.log('Leftover Rescue server is running.');
 });
