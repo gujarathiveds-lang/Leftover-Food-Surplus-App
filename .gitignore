@@ -1,0 +1,8 @@
+node_modules/
+**/node_modules/
+.env
+**/.env
+data/users.json
+data/reservations.json
+LeftoverRescue/data/users.json
+LeftoverRescue/data/reservations.json

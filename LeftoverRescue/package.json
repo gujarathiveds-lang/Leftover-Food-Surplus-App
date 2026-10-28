@@ -1,0 +1,15 @@
+{
+  "name": "leftover-rescue",
+  "version": "1.0.0",
+  "description": "Local surplus food marketplace to reduce food waste.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "seed": "node populate-stores.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "express-session": "^1.18.0",
+    "bcryptjs": "^2.4.3"
+  }
+}

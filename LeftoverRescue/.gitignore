@@ -1,0 +1,10 @@
+node_modules/
+.env
+.env.*
+*.log
+.DS_Store
+
+#Keep private data out of the repo
+/data/users.json
+/data/reservations.json
+/data/listings.json

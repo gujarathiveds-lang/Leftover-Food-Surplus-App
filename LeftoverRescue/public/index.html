@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leftover Rescue - Surplus Food Marketplace</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <h1 class="logo" onclick="showView('home')">♻️ Leftover Rescue</h1>
+            <nav id="nav-links">
+                <!-- Dynamic navigation inserted by app.js -->
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div id="alert-banner" class="alert hidden" role="status" aria-live="polite"></div>
+
+        <!-- Home -->
+        <section id="view-home" class="view">
+            <div class="hero">
+                <h2>Save Food. Save Money. Save the Planet.</h2>
+                <p>Discover delicious surplus food from your favorite local restaurants, bakeries, and cafes at a fraction of the original price.</p>
+                <button class="btn-primary" onclick="showView('explore')">Browse Nearby Food</button>
+            </div>
+        </section>
+
+        <!-- Login and registration -->
+        <section id="view-auth" class="view hidden">
+            <div class="auth-card">
+                <h2 id="auth-title">Sign In</h2>
+                <form id="auth-form">
+                    <div class="form-group">
+                        <label for="auth-email">Email Address</label>
+                        <input type="email" id="auth-email" maxlength="254" autocomplete="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="auth-password">Password</label>
+                        <input type="password" id="auth-password" maxlength="128" autocomplete="current-password" required>
+                    </div>
+
+                    <div class="form-group toggle-reg hidden">
+                        <label for="auth-name">Name (Your Name or Business Name)</label>
+                        <input type="text" id="auth-name" maxlength="80" autocomplete="name">
+                    </div>
+
+                    <div class="form-group toggle-reg hidden">
+                        <label for="auth-role">Account Type</label>
+                        <select id="auth-role">
+                            <option value="customer">Customer (Buyer)</option>
+                            <option value="business">Business (Merchant)</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" id="auth-submit-btn" class="btn-primary">Login</button>
+                </form>
+
+                <p class="auth-toggle-text">
+                    <span id="auth-toggle-msg">Don't have an account?</span>
+                    <a href="#" id="auth-toggle-link">Register here</a>
+                </p>
+            </div>
+        </section>
+
+        <!-- Marketplace -->
+        <section id="view-explore" class="view hidden">
+            <h2>Available Surplus Food Listings</h2>
+            <div id="listings-grid" class="listings-grid">
+                <!-- Cards are populated by app.js -->
+            </div>
+        </section>
+
+        <!-- Customer dashboard -->
+        <section id="view-customer-dashboard" class="view hidden">
+            <h2>Your Claims & Reservations</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Store</th>
+                            <th>Quantity</th>
+                            <th>Total Price</th>
+                            <th>Pickup Window</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="customer-reservations-table">
+                        <!-- Customer reservations appear here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Business dashboard -->
+        <section id="view-business-dashboard" class="view hidden">
+            <div class="dashboard-header">
+                <h2>Merchant Storefront Control Panel</h2>
+                <button class="btn-primary" onclick="openListingModal()">+ Post New Surplus Food</button>
+            </div>
+
+            <h3>Active Food Offerings</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Food Item</th>
+                            <th>Original Price</th>
+                            <th>Discounted Price</th>
+                            <th>Quantity Left</th>
+                            <th>Pickup Window</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="business-listings-table">
+                        <!-- Business listings appear here -->
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Incoming Customer Reservations</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Customer Name</th>
+                            <th>Food Item</th>
+                            <th>Quantity Claimed</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="business-orders-table">
+                        <!-- Business reservations appear here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- New listing modal -->
+    <div id="listing-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeListingModal()">&times;</span>
+            <h2>Post Surplus Food Listing</h2>
+
+            <form id="listing-form">
+                <div class="form-group">
+                    <label for="listing-title">Item Name / Description</label>
+                    <input type="text" id="listing-title" maxlength="140" placeholder="e.g., Assorted Sweet Pastries Box" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="listing-original-price">Original Price ($)</label>
+                        <input type="number" id="listing-original-price" min="0.01" max="100000" step="0.01" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="listing-discount-price">Surplus Sale Price ($)</label>
+                        <input type="number" id="listing-discount-price" min="0" max="100000" step="0.01" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="listing-quantity">Available Quantity</label>
+                    <input type="number" id="listing-quantity" min="1" max="100000" step="1" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="listing-pickup">Pickup Time Window</label>
+                    <input type="text" id="listing-pickup" maxlength="160" placeholder="e.g., 6:30 PM - 8:00 PM Tonight" required>
+                </div>
+
+                <button type="submit" class="btn-primary">Publish to Marketplace</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
